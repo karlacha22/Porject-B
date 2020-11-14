@@ -1,0 +1,72 @@
+#!/usr/bin/env python
+import socket
+import sys
+import time
+
+from datetime import datetime
+import now as now
+import result as result
+
+
+# Using the range function to specify ports (here it will scans all ports between 1 and 1024)
+import socket
+import time
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# here we asking for the target website
+# or host
+target = input('What you want to scan?: ')
+
+# Print a banner with information on host we are about to scan
+print("-" * 60)
+print("Please wait, scanning remote host")
+print("-" * 60)
+# next line gives us the ip address
+# of the target
+target_ip = socket.gethostbyname(target)
+print('Starting scan on host:', target_ip)
+
+
+# function for scanning ports
+
+
+def port_scan(port):
+    try:
+        s.connect((target_ip, port))
+        return True
+    except:
+        return False
+
+# Check what time the scan started
+# Time needs to be mm/dd/yy and time m:m:s
+
+start = time.time()
+
+# here we are scanning port 0 to 4
+for port in range(10):
+    if port_scan(port):
+        print(f'port {port} is open')
+    else:
+        print(f'port {port} is closed')
+
+
+
+end = time.time()
+print(f'Time taken {end - start:.2f} seconds')
+
+now = datetime.now()
+
+print("now =", now)
+
+# dd/mm/YY H:M:S
+dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+print("date and time =", dt_string)
+
+# Calculates the difference of time, to see how long it took to run the script
+
+
+# Printing the information to screen
+print('Scanning Completed in: ', total)
+print("-" * 60)
+sys.exit()
